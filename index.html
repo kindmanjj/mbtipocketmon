@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI 스타팅 포켓몬 추천</title>
+    <style>
+        body {
+            background-color: #f0f0f0; /* 밝은 배경색 */
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            color: #333;
+        }
+        h1 {
+            background-color: #6a1b9a;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .mbti-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4열 그리드 */
+            gap: 10px;
+            margin: 20px;
+        }
+        .mbti-option {
+            padding: 20px;
+            border: 2px solid #6a1b9a;
+            border-radius: 10px;
+            background-color: white;
+            cursor: pointer;
+        }
+        .mbti-option.selected {
+            background-color: #ff4081; /* 선택된 옵션 강조 */
+            color: white;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 20px;
+            border-radius: 10px;
+            border: none;
+            background-color: #ff4081;
+            color: white;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            background-color: #6a1b9a;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .pokemon-image {
+            width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+        @media (max-width: 600px) {
+            .mbti-grid {
+                grid-template-columns: repeat(2, 1fr); /* 모바일에서 2열 그리드 */
+            }
+            .mbti-option {
+                font-size: 16px;
+                padding: 15px;
+            }
+            button {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>MBTI에 맞는 스타팅 포켓몬 추천</h1>
+    <div class="mbti-grid">
+        <div class="mbti-option" onclick="selectOption(this)" data-value="INTJ">INTJ</div>
+        <div class="mbti-option" onclick="selectOption(this)" data-value="INTP">INTP</div>
+        <div class="mbti-option" onclick="selectOption(this)" data-value="ENTJ">ENTJ</div>
+        <div class="mbti-option" onclick="selectOption(this)" data-value="ENTP">ENTP</div>
+        <div class="mbti-option" onclick="selectOption(this)" data-value="INFJ">INFJ</div>
+        <div class="mbti-option" onclick="selectOption(this)" data-value="INFP">INFP</div>
+        <div class="mbti-option" onclick="selectOption(this)" data-value="ENFJ">ENFJ</div>
+        <div class="mbti-option" onclick="selectOption(this)" data-value="ENFP">ENFP</div>
+        <div class="mbti-option" onclick="selectOption(this)" data-value="ISTJ">ISTJ</div>
+        <div class="mbti-option" onclick="selectOption(this)" data-value="ISFJ">ISFJ</div>
+        <div class="mbti-option" onclick="selectOption(this)" data-value="ESTJ">ESTJ</div>
+        <div class="mbti-option" onclick="selectOption(this)" data-value="ESFJ">ESFJ</div>
+        <div class="mbti-option" onclick="selectOption(this)" data-value="ISTP">ISTP</div>
+        <div class="mbti-option" onclick="selectOption(this)" data-value="ISFP">ISFP</div>
+        <div class="mbti-option" onclick="selectOption(this)" data-value="ESTP">ESTP</div>
+        <div class="mbti-option" onclick="selectOption(this)" data-value="ESFP">ESFP</div>
+    </div>
+    <button onclick="recommendPokemon()">확인</button>
+    <div id="result"></div>
+
+    <script>
+        let selectedOption = null;
+
+        function selectOption(element) {
+            if (selectedOption) {
+                selectedOption.classList.remove('selected');
+            }
+            element.classList.add('selected');
+            selectedOption = element;
+        }
+
+        function recommendPokemon() {
+            if (!selectedOption) {
+                alert('MBTI 유형을 선택하세요.');
+                return;
+            }
+
+            const mbti = selectedOption.getAttribute('data-value');
+            const recommendations = {
+                'INTJ': { name: '이상해씨', image: 'https://img.pokemondb.net/artwork/bulbasaur.jpg' },
+                'INTP': { name: '파이리', image: 'https://img.pokemondb.net/artwork/charmander.jpg' },
+                'ENTJ': { name: '꼬부기', image: 'https://img.pokemondb.net/artwork/squirtle.jpg' },
+                'ENTP': { name: '치코리타', image: 'https://img.pokemondb.net/artwork/chikorita.jpg' },
+                'INFJ': { name: '브케인', image: 'https://img.pokemondb.net/artwork/cyndaquil.jpg' },
+                'INFP': { name: '리아코', image: 'https://img.pokemondb.net/artwork/totodile.jpg' },
+                'ENFJ': { name: '나무지기', image: 'https://img.pokemondb.net/artwork/treecko.jpg' },
+                'ENFP': { name: '아차모', image: 'https://img.pokemondb.net/artwork/torchic.jpg' },
+                'ISTJ': { name: '물짱이', image: 'https://img.pokemondb.net/artwork/mudkip.jpg' },
+                'ISFJ': { name: '모부기', image: 'https://img.pokemondb.net/artwork/turtwig.jpg' },
+                'ESTJ': { name: '불꽃숭이', image: 'https://img.pokemondb.net/artwork/chimchar.jpg' },
+                'ESFJ': { name: '팽도리', image: 'https://img.pokemondb.net/artwork/piplup.jpg' },
+                'ISTP': { name: '츠타쟈', image: 'https://img.pokemondb.net/artwork/snivy.jpg' },
+                'ISFP': { name: '뮤', image: 'https://img.pokemondb.net/artwork/mew.jpg' },
+                'ESTP': { name: '불비달마', image: 'https://img.pokemondb.net/artwork/darmanitan.jpg' },
+                'ESFP': { name: '가라르 파이리', image: 'https://img.pokemondb.net/artwork/charmander-galar.jpg' }
+            };
+
+            const result = recommendations[mbti];
+            const resultDiv = document.getElementById('result');
+            if (result) {
+                resultDiv.innerHTML = `추천 스타팅 포켓몬: ${result.name} <br><img src="${result.image}" alt="${result.name}" class="pokemon-image">`;
+            } else {
+                resultDiv.innerHTML = '유효한 MBTI 유형을 선택하세요.';
+            }
+        }
+    </script>
+</body>
+</html>
+
